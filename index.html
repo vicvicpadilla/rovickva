@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Assistant Portfolio</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        surface: '#1a1a2e',
+        card: '#232340',
+        accent: '#d4a853',
+        accentLight: '#e8c97a',
+        bodyText: '#c8c8d8',
+        heading: '#f0f0f5'
+      }
+    }
+  }
+}
+</script>
+  <style>
+html, body { height: 100%; margin: 0; font-family: 'DM Sans', sans-serif; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Outfit', sans-serif; }
+.app-wrapper { height: 100%; overflow-y: auto; overflow-x: hidden; background: #0d0d1a; scroll-behavior: smooth; }
+.glow-gold { box-shadow: 0 0 25px rgba(212,168,83,0.15); }
+.glow-gold-strong { box-shadow: 0 0 40px rgba(212,168,83,0.25); }
+.glow-border { border: 1px solid rgba(212,168,83,0.2); }
+.glow-border:hover { border-color: rgba(212,168,83,0.5); box-shadow: 0 0 30px rgba(212,168,83,0.15); }
+.btn-glow { background: linear-gradient(135deg, #d4a853, #c49a3e); box-shadow: 0 0 20px rgba(212,168,83,0.3); transition: all 0.3s; }
+.btn-glow:hover { box-shadow: 0 0 40px rgba(212,168,83,0.5); transform: translateY(-2px); }
+.btn-outline { border: 1px solid rgba(212,168,83,0.5); color: #d4a853; transition: all 0.3s; }
+.btn-outline:hover { background: rgba(212,168,83,0.1); box-shadow: 0 0 25px rgba(212,168,83,0.2); }
+.card-hover { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 0 35px rgba(212,168,83,0.15); }
+.profile-glow { box-shadow: 0 0 40px rgba(212,168,83,0.3), 0 0 80px rgba(212,168,83,0.1); }
+.profile-glow:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(212,168,83,0.4); }
+.fade-up { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.4,0,0.2,1); }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-left { opacity: 0; transform: translateX(-30px); transition: all 0.7s ease; }
+.fade-left.visible { opacity: 1; transform: translateX(0); }
+.fade-right { opacity: 0; transform: translateX(30px); transition: all 0.7s ease; }
+.fade-right.visible { opacity: 1; transform: translateX(0); }
+.nav-blur { backdrop-filter: blur(20px); background: rgba(13,13,26,0.85); }
+.status-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.grid-item:hover img { transform: scale(1.08); }
+.grid-item img { transition: transform 0.5s ease; }
+.trust-icon { transition: all 0.3s; }
+.trust-icon:hover { box-shadow: 0 0 25px rgba(212,168,83,0.3); transform: translateY(-3px); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0d0d1a; }
+::-webkit-scrollbar-thumb { background: #d4a853; border-radius: 3px; }
+.hero-bg { background: radial-gradient(ellipse at 50% 0%, rgba(212,168,83,0.08) 0%, transparent 60%); }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="app-wrapper" id="appWrapper"><!-- Navigation -->
+   <nav class="fixed top-0 left-0 w-full z-50 nav-blur border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between"><a href="#hero" class="text-accent font-bold text-xl" style="font-family:'Outfit',sans-serif;">VIC<span class="text-heading">VIC</span></a>
+     <div class="hidden md:flex items-center gap-6"><a href="#about" class="text-bodyText hover:text-accent transition text-sm">About</a> <a href="#services" class="text-bodyText hover:text-accent transition text-sm">Services</a> <a href="#tools" class="text-bodyText hover:text-accent transition text-sm">Tools</a> <a href="#contact" class="btn-glow text-black font-semibold text-sm px-5 py-2 rounded-full">Hire Me</a>
+     </div><button id="mobileMenuBtn" class="md:hidden text-heading"><i data-lucide="menu" style="width:24px;height:24px;"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 pt-2 flex flex-col gap-3 border-t border-white/5"><a href="#about" class="text-bodyText hover:text-accent transition text-sm py-1 mobile-link">About</a> <a href="#services" class="text-bodyText hover:text-accent transition text-sm py-1 mobile-link">Services</a> <a href="#tools" class="text-bodyText hover:text-accent transition text-sm py-1 mobile-link">Tools</a> <a href="#contact" class="btn-glow text-black font-semibold text-sm px-5 py-2 rounded-full text-center mobile-link">Hire Me</a>
+    </div>
+   </nav><!-- Hero -->
+   <section id="hero" class="hero-bg pt-28 pb-16 sm:pt-36 sm:pb-24 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
+     <div class="flex-1 text-center lg:text-left">
+      <div class="fade-up"><span class="inline-block text-accent text-xs font-semibold tracking-widest uppercase mb-4 px-3 py-1 rounded-full border border-accent/30 bg-accent/5">Virtual Assistant</span>
+      </div>
+      <h1 id="heroHeadline" class="fade-up text-heading text-3xl sm:text-4xl lg:text-5xl font-800 leading-tight mb-5" style="transition-delay:0.1s;">Hello I'm Vicvic your virtual companion that will help you succeed</h1>
+      <div class="fade-up flex flex-col sm:flex-row gap-3 justify-center lg:justify-start" style="transition-delay:0.3s;"><a href="#contact" class="btn-glow text-black font-semibold px-8 py-3 rounded-full text-center">Hire Me</a> <a href="#services" class="btn-outline px-8 py-3 rounded-full text-center font-medium">View Services</a>
+      </div>
+     </div>
+     <div class="flex-shrink-0 fade-up" style="transition-delay:0.15s;">
+      <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-2 border-accent/40 profile-glow transition-all duration-500"><img src="profile/Profile.jpg" alt="Virtual Assistant Profile Photo" loading="lazy" class="w-full h-full object-cover" onerror="this.style.background='linear-gradient(135deg,#232340,#1a1a2e)';this.alt='Profile photo';">
+      </div>
+     </div>
+    </div>
+   </section><!-- Trust Indicators -->
+   <section class="py-12 px-4 sm:px-6 border-y border-white/5">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
+     <div class="fade-up trust-icon flex items-center gap-4 bg-card/50 rounded-xl p-5 glow-border cursor-default">
+      <div class="w-11 h-11 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+       <i data-lucide="shield-check" style="width:20px;height:20px;color:#d4a853;"></i>
+      </div>
+      <div>
+       <p class="text-heading font-semibold text-sm">Trusted Virtual Assistant</p>
+       <p class="text-bodyText/60 text-xs mt-0.5">From the Philippines</p>
+      </div>
+     </div>
+     <div class="fade-up trust-icon flex items-center gap-4 bg-card/50 rounded-xl p-5 glow-border cursor-default" style="transition-delay:0.1s;">
+      <div class="w-11 h-11 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+       <i data-lucide="zap" style="width:20px;height:20px;color:#d4a853;"></i>
+      </div>
+      <div>
+       <p class="text-heading font-semibold text-sm">Fast &amp; Reliable Support</p>
+       <p class="text-bodyText/60 text-xs mt-0.5">Quick turnaround, every time</p>
+      </div>
+     </div>
+     <div class="fade-up trust-icon flex items-center gap-4 bg-card/50 rounded-xl p-5 glow-border cursor-default" style="transition-delay:0.2s;">
+      <div class="w-11 h-11 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+       <i data-lucide="check-circle" style="width:20px;height:20px;color:#d4a853;"></i>
+      </div>
+      <div>
+       <p class="text-heading font-semibold text-sm">Detail-Oriented &amp; Organized</p>
+       <p class="text-bodyText/60 text-xs mt-0.5">Nothing slips through the cracks</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- About -->
+   <section id="about" class="py-16 sm:py-24 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+     <h2 class="fade-up text-heading text-2xl sm:text-3xl font-bold text-center mb-12">About Me</h2>
+     <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+      <div class="flex-1 fade-left">
+       <p id="aboutText" class="text-bodyText leading-relaxed text-sm sm:text-base">Hi, I’m Rovick Andrei Padilla, a Virtual Assistant who helps businesses stay organized, manage daily tasks, and improve productivity.
+As a fresh graduate in Information Technology, I bring strong attention to detail, reliability, and a willingness to learn. I may be new, but I’m fully committed to delivering quality work and supporting your business every step of the way.</p>
+      </div>
+      <div class="flex-1 fade-right">
+        <div class="bg-card rounded-2xl p-6 glow-border glow-gold space-y-4">
+          <a href="resume/Resume - Rovick.pdf" download class="btn-glow text-black font-semibold px-6 py-3 rounded-full text-center block w-full">
+            <i data-lucide="download" style="width:18px;height:18px;display:inline-block;margin-right:8px;vertical-align:middle;"></i>Download Resume
+          </a>
+          <p class="text-bodyText/50 text-xs text-center">PDF • Last updated: April 2026</p>
+        </div>
+      </div>
+      <div class="lg:w-80 flex-shrink-0 fade-right">
+       <div class="bg-card rounded-2xl p-6 glow-border glow-gold">
+        <div class="flex items-center gap-2 mb-4">
+         <div class="status-dot"></div><span class="text-green-400 text-xs font-semibold">Available for Work</span>
+        </div>
+        <h3 class="text-heading font-semibold text-sm mb-3">Availability</h3>
+        <div class="flex items-start gap-3 mb-2"><i data-lucide="calendar" style="width:16px;height:16px;color:#d4a853;flex-shrink:0;margin-top:2px;"></i> <span class="text-bodyText text-sm">Mon – Wed</span>
+        </div>
+        <div class="flex items-start gap-3 mb-2"><i data-lucide="clock" style="width:16px;height:16px;color:#d4a853;flex-shrink:0;margin-top:2px;"></i> <span id="availabilityHours" class="text-bodyText text-sm">9:00 AM – 6:00 PM, UTC+8 (PHST)</span>
+        </div>
+        <div class="flex items-start gap-3 mb-2"></div>
+        <div class="flex items-start gap-3 mb-2"><i data-lucide="calendar" style="width:16px;height:16px;color:#d4a853;flex-shrink:0;margin-top:2px;"></i> <span class="text-bodyText text-sm">Thurs – Sat</span>
+        </div>
+        <div class="flex items-start gap-3 mb-2"><i data-lucide="clock" style="width:16px;height:16px;color:#d4a853;flex-shrink:0;margin-top:2px;"></i> <span id="availabilityHours" class="text-bodyText text-sm">7:00 PM – 2:00 AM, UTC-5 (EST)</span>
+        </div>
+         <div class="flex items-start gap-3"><i data-lucide="dollar-sign" style="width:16px;height:16px;color:#d4a853;flex-shrink:0;margin-top:2px;"></i> <span id="hourlyRate" class="text-bodyText text-sm">$4 - $6 per hour</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Services -->
+   <section id="services" class="py-16 sm:py-24 px-4 sm:px-6 bg-surface/30">
+    <div class="max-w-6xl mx-auto">
+     <h2 class="fade-up text-heading text-2xl sm:text-3xl font-bold text-center mb-4">What Can I Do For You?</h2>
+     <p class="fade-up text-bodyText/60 text-center text-sm mb-12 max-w-md mx-auto"></p>
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="fade-up card-hover bg-card rounded-2xl p-6 glow-border">
+       <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+        <i data-lucide="mail" style="width:18px;height:18px;color:#d4a853;"></i>
+       </div>
+       <h3 class="text-heading font-semibold mb-2 text-sm">Email &amp; Inbox Management</h3>
+       <p class="text-bodyText/70 text-xs leading-relaxed">I know how important it is to keep your communication organized, efficient, and stress-free. I help sort and prioritize emails, respond to important messages, and ensure nothing gets overlooked. From filtering spam and categorizing messages to maintaining a clean and structured inbox, I make sure your daily workflow runs smoothly. With a proactive approach, I can also flag urgent emails, follow up on pending conversations, and keep your inbox aligned with your priorities—so you can focus on what truly matters without feeling overwhelmed.</p>
+      </div>
+      <div class="fade-up card-hover bg-card rounded-2xl p-6 glow-border" style="transition-delay:0.05s;">
+       <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+        <i data-lucide="calendar" style="width:18px;height:18px;color:#d4a853;"></i>
+       </div>
+       <h3 class="text-heading font-semibold mb-2 text-sm">Calendar & Schedule Management</h3>
+       <p class="text-bodyText/70 text-xs leading-relaxed">I help you manage your calendar and schedule efficiently, ensuring you never miss an important meeting or deadline. I coordinate appointments, set reminders, and keep your schedule organized and up-to-date. Whether it's booking meetings, rescheduling events, or managing recurring activities, I handle the details so you can focus on what matters most.</p>
+      </div>
+      <div class="fade-up card-hover bg-card rounded-2xl p-6 glow-border" style="transition-delay:0.1s;">
+       <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+        <i data-lucide="file-text" style="width:18px;height:18px;color:#d4a853;"></i>
+       </div>
+       <h3 class="text-heading font-semibold mb-2 text-sm">Data Entry &amp; File Organization</h3>
+       <p class="text-bodyText/70 text-xs leading-relaxed">Keeping your important documents, information, secured, organized, and easy to find when you need it. I handle data with attention to detail, making sure everything is entered correctly and arranged in a clear, structured way. Whether it’s spreadsheets, documents, or digital files, I organize them so your workflow becomes smoother and less stressful.</p>
+      </div>
+      <div class="fade-up card-hover bg-card rounded-2xl p-6 glow-border" style="transition-delay:0.15s;">
+       <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+        <i data-lucide="share-2" style="width:18px;height:18px;color:#d4a853;"></i>
+       </div>
+       <h3 class="text-heading font-semibold mb-2 text-sm">Social Media Management</h3>
+       <p class="text-bodyText/70 text-xs leading-relaxed">I help you manage your social media presence, keeping it active, consistent, and engaging without taking up all your time. From planning and scheduling posts to responding to messages and comments, I make sure your accounts stay organized and up to date. I also pay attention to your brand’s voice and style, so every post feels natural and aligned with your goals. Whether you’re trying to grow your audience or simply maintain a strong online presence, I handle the day-to-day tasks so you can focus on running your business.</p>
+      </div>
+      <div class="fade-up card-hover bg-card rounded-2xl p-6 glow-border" style="transition-delay:0.2s;">
+       <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+        <i data-lucide="image" style="width:18px;height:18px;color:#d4a853;"></i>
+       </div>
+       <h3 class="text-heading font-semibold mb-2 text-sm">Canva Content Creation</h3>
+       <p class="text-bodyText/70 text-xs leading-relaxed">Heard about promoting products using canva? I can do that to by turning your ideas into designs that actually catch people’s attention. I create clean, eye-catching visuals for social media, presentations, and other materials—making sure everything looks professional but still feels natural and on-brand. I pay attention to the small details like colors, spacing, and layout so your content doesn’t just look good, but also connects with your audience.</p>
+      </div>
+      <div class="fade-up card-hover bg-card rounded-2xl p-6 glow-border" style="transition-delay:0.25s;">
+       <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+        <i data-lucide="search" style="width:18px;height:18px;color:#d4a853;"></i>
+       </div>
+       <h3 class="text-heading font-semibold mb-2 text-sm">Research &amp; Admin Support</h3>
+       <p class="text-bodyText/70 text-xs leading-relaxed">I assist with research tasks, data analysis, and administrative duties, ensuring you have the information and support needed to make informed decisions. From compiling reports to managing databases, I handle the details so you can focus on strategic initiatives.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Tools -->
+   <section id="tools" class="py-16 sm:py-24 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+     <h2 class="fade-up text-heading text-2xl sm:text-3xl font-bold text-center mb-4">Tools</h2>
+     <p class="fade-up text-bodyText/60 text-center text-sm mb-12 max-w-md mx-auto"></p>
+     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="fade-up card-hover flex items-center gap-4 bg-card rounded-xl p-5 glow-border">
+       <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0 text-lg">
+        📊
+       </div>
+       <div>
+        <p class="text-heading font-semibold text-sm">Google Workspace</p>
+        <p class="text-bodyText/60 text-xs">Docs, Sheets, Forms, Drive, Word, Excel</p>
+       </div>
+      </div>
+      <div class="fade-up card-hover flex items-center gap-4 bg-card rounded-xl p-5 glow-border" style="transition-delay:0.05s;">
+       <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0 text-lg">
+        🎨
+       </div>
+       <div>
+        <p class="text-heading font-semibold text-sm">Graphics Design</p>
+        <p class="text-bodyText/60 text-xs">Canva, Presentations, PoterMyWall, </p>
+       </div>
+      </div>
+      <div class="fade-up card-hover flex items-center gap-4 bg-card rounded-xl p-5 glow-border" style="transition-delay:0.1s;">
+       <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0 text-lg">
+        🤖
+       </div>
+       <div>
+        <p class="text-heading font-semibold text-sm">AI Tools</p>
+        <p class="text-bodyText/60 text-xs">ChatGPT, Gemini, DeepSeek, Claude</p>
+       </div>
+      </div>
+      <div class="fade-up card-hover flex items-center gap-4 bg-card rounded-xl p-5 glow-border" style="transition-delay:0.15s;">
+       <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0 text-lg">
+        💬
+       </div>
+       <div>
+        <p class="text-heading font-semibold text-sm">Communication</p>
+        <p class="text-bodyText/60 text-xs">Zoom, Gmeet, Messenger, Email</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact -->
+   <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 bg-surface/30">
+    <div class="max-w-4xl mx-auto">
+     <h2 class="fade-up text-heading text-2xl sm:text-3xl font-bold text-center mb-12">Connect With Me</h2>
+     <div class="flex justify-center fade-up">
+      <div class="bg-card rounded-2xl p-8 glow-border space-y-6 max-w-md w-full">
+       <a href="https://www.facebook.com/rovickva/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 text-bodyText hover:text-accent transition group">
+        <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition flex-shrink-0">
+         <i data-lucide="facebook" style="width:20px;height:20px;color:#d4a853;"></i>
+        </div>
+        <div>
+         <p class="text-heading font-semibold text-sm">Facebook</p>
+         <p class="text-bodyText/60 text-xs">Connect on Facebook</p>
+        </div></a> <a href="https://www.linkedin.com/in/rovick-andrei-padilla-88a59b351/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 text-bodyText hover:text-accent transition group">
+        <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition flex-shrink-0">
+         <i data-lucide="linkedin" style="width:20px;height:20px;color:#d4a853;"></i>
+        </div>
+        <div>
+         <p class="text-heading font-semibold text-sm">LinkedIn</p>
+         <p class="text-bodyText/60 text-xs">Professional profile</p>
+        </div></a>
+       <div class="flex items-center gap-4 text-bodyText">
+        <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+         <i data-lucide="mail" style="width:20px;height:20px;color:#d4a853;"></i>
+        </div>
+        <div>
+         <p class="text-heading font-semibold text-sm">Email</p>
+         <p id="contactEmail" class="text-bodyText/60 text-xs break-all">rovickplayz24@gmail.com</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 px-4 border-t border-white/5 text-center">
+    <p class="text-bodyText/40 text-xs">© 2026 Rovick Andrei Padilla. All rights reserved.</p>
+   </footer>
+  </div>
+  <script>
+const defaultConfig = {
+  hero_headline: "Top-Rated Virtual Assistant Helping Businesses Scale Efficiently",
+  hero_subtext: "I help busy entrepreneurs reclaim their time by handling admin, scheduling, and digital tasks — so you can focus on growing your business.",
+  about_text: "I'm a dedicated Virtual Assistant with a passion for helping businesses run smoother and smarter. My focus is on saving you time, keeping your tasks organized, and ensuring clear, professional communication at every step. Whether it's managing your inbox, scheduling appointments, or handling admin work — I bring efficiency and reliability to every task. I understand that your time is your most valuable asset, and I'm here to help you protect it.",
+  availability_hours: "9:00 AM – 6:00 PM (PHST)",
+  testimonial_text: "This VA transformed how I manage my inbox and schedule. I've reclaimed 10+ hours weekly. Highly professional and incredibly reliable.",
+  testimonial_author: "John Martinez",
+  testimonial_text_2: "Professional, organized, and always on top of things. My admin work is completely handled now. This VA is a game-changer for my business.",
+  testimonial_author_2: "Sarah Khan",
+  cta_message: "Let's make your workflow easier and more efficient.",
+  contact_email: "yourname@gmail.com",
+  background_color: "#0d0d1a",
+  card_color: "#232340",
+  text_color: "#c8c8d8",
+  accent_color: "#d4a853",
+  secondary_color: "#f0f0f5",
+  font_family: "DM Sans",
+  font_size: 14
+};
+
+function applyConfig(config) {
+  const el = (id) => document.getElementById(id);
+  el('heroHeadline').textContent = config.hero_headline || defaultConfig.hero_headline;
+  el('heroSubtext').textContent = config.hero_subtext || defaultConfig.hero_subtext;
+  el('aboutText').textContent = config.about_text || defaultConfig.about_text;
+  el('availabilityHours').textContent = config.availability_hours || defaultConfig.availability_hours;
+  el('testimonialText').textContent = config.testimonial_text || defaultConfig.testimonial_text;
+  el('testimonialAuthor').textContent = config.testimonial_author || defaultConfig.testimonial_author;
+  el('testimonialText2').textContent = config.testimonial_text_2 || defaultConfig.testimonial_text_2;
+  el('testimonialAuthor2').textContent = config.testimonial_author_2 || defaultConfig.testimonial_author_2;
+  el('ctaMessage').textContent = config.cta_message || defaultConfig.cta_message;
+  el('contactEmail').textContent = config.contact_email || defaultConfig.contact_email;
+
+  const bg = config.background_color || defaultConfig.background_color;
+  const card = config.card_color || defaultConfig.card_color;
+  const txt = config.text_color || defaultConfig.text_color;
+  const acc = config.accent_color || defaultConfig.accent_color;
+  const head = config.secondary_color || defaultConfig.secondary_color;
+
+  document.documentElement.style.setProperty('--bg', bg);
+  document.querySelector('.app-wrapper').style.background = bg;
+
+  document.querySelectorAll('.bg-card, .bg-card\\/50').forEach(e => e.style.backgroundColor = card);
+  document.querySelectorAll('.text-bodyText').forEach(e => e.style.color = txt);
+  document.querySelectorAll('.text-heading').forEach(e => e.style.color = head);
+  document.querySelectorAll('.text-accent').forEach(e => e.style.color = acc);
+
+  const font = config.font_family || defaultConfig.font_family;
+  const baseSize = config.font_size || defaultConfig.font_size;
+  document.body.style.fontFamily = `${font}, DM Sans, sans-serif`;
+  document.querySelectorAll('h1').forEach(e => e.style.fontSize = `${baseSize * 2.4}px`);
+  document.querySelectorAll('h2').forEach(e => e.style.fontSize = `${baseSize * 1.8}px`);
+  document.querySelectorAll('h3').forEach(e => e.style.fontSize = `${baseSize * 1.1}px`);
+  document.querySelectorAll('p, span, a, label, input, textarea, button').forEach(e => {
+    if (!e.closest('h1,h2,h3')) e.style.fontFamily = `${font}, DM Sans, sans-serif`;
+  });
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => applyConfig(config),
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.card_color || defaultConfig.card_color, set: (v) => { config.card_color = v; window.elementSdk.setConfig({ card_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+        { get: () => config.secondary_color || defaultConfig.secondary_color, set: (v) => { config.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+      fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ["hero_headline", config.hero_headline || defaultConfig.hero_headline],
+      ["hero_subtext", config.hero_subtext || defaultConfig.hero_subtext],
+      ["about_text", config.about_text || defaultConfig.about_text],
+      ["availability_hours", config.availability_hours || defaultConfig.availability_hours],
+      ["testimonial_text", config.testimonial_text || defaultConfig.testimonial_text],
+      ["testimonial_author", config.testimonial_author || defaultConfig.testimonial_author],
+      ["testimonial_text_2", config.testimonial_text_2 || defaultConfig.testimonial_text_2],
+      ["testimonial_author_2", config.testimonial_author_2 || defaultConfig.testimonial_author_2],
+      ["cta_message", config.cta_message || defaultConfig.cta_message],
+      ["contact_email", config.contact_email || defaultConfig.contact_email]
+    ])
+  });
+}
+
+// Mobile menu
+document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('hidden');
+});
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('hidden');
+}));
+
+
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => observer.observe(el));
+
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9eb13bd5066f402d',t:'MTc3NTk4NjQ1MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
